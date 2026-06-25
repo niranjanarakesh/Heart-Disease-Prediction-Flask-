@@ -1,32 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heart Disease Predictor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
+    <div class="gradient-1"></div>
+    <div class="gradient-2"></div>
+    <div class="gradient-3"></div>
+
     <div class="container">
 
-        <h1>❤️ Heart Disease Predictor</h1>
+        <h1>🫀 Heart Disease Predictor</h1>
+        <p class="subtitle">
+            Predict heart disease risk using clinical and lifestyle factors
+        </p>
 
         <form action="/predict" method="POST">
+
+            <div class="section-title">Personal Information</div>
 
             <input type="number" name="age" placeholder="Age" required>
 
             <select name="gender" required>
-                <option value="">Select Gender</option>
+                <option value="">Gender</option>
                 <option value="1">Male</option>
                 <option value="0">Female</option>
             </select>
+
+            <select name="family_history" required>
+                <option value="">Family History</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+
+            <div></div>
+
+            <div class="section-title">Health Metrics</div>
 
             <input type="number" name="cholesterol" placeholder="Cholesterol" required>
 
             <input type="number" name="blood_pressure" placeholder="Blood Pressure" required>
 
             <input type="number" name="heart_rate" placeholder="Heart Rate" required>
+
+            <input type="number" step="0.1" name="blood_sugar" placeholder="Blood Sugar" required>
+
+            <div class="section-title">Lifestyle Factors</div>
 
             <select name="smoking" required>
                 <option value="">Smoking Status</option>
@@ -43,11 +68,9 @@
 
             <input type="number" step="0.1" name="exercise_hours" placeholder="Exercise Hours" required>
 
-            <select name="family_history" required>
-                <option value="">Family History</option>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-            </select>
+            <input type="number" step="0.1" name="stress_level" placeholder="Stress Level" required>
+
+            <div class="section-title">Risk Factors</div>
 
             <select name="diabetes" required>
                 <option value="">Diabetes</option>
@@ -60,10 +83,6 @@
                 <option value="1">Yes</option>
                 <option value="0">No</option>
             </select>
-
-            <input type="number" step="0.1" name="stress_level" placeholder="Stress Level" required>
-
-            <input type="number" step="0.1" name="blood_sugar" placeholder="Blood Sugar" required>
 
             <select name="angina" required>
                 <option value="">Exercise Induced Angina</option>
@@ -79,11 +98,15 @@
                 <option value="3">Typical Angina</option>
             </select>
 
-            <button type="submit">Predict</button>
+            <button type="submit">Predict Risk</button>
 
         </form>
 
-        <h2>{{ prediction_text }}</h2>
+        {% if prediction_text %}
+        <div class="result-card">
+            {{ prediction_text }}
+        </div>
+        {% endif %}
 
     </div>
 
